@@ -1,23 +1,12 @@
-import base64
-import io
+# import base64
+# import io
 import tensorflow as tf
-import numpy as np
-from PIL import Image
 
 
-def decode_base64(base64_string):
-    image_data = base64.b64decode(base64_string)
-    image = io.BytesIO(image_data)
-    return image
-
-
-def load_image(image):
-    image = Image.open(image)
-    image = image.resize((128, 128))
-    image = np.array(image) / 255.
-    image = np.expand_dims(image, axis=0)
-
-    return image
+# def decode_base64(base64_string):
+#     image_data = base64.b64decode(base64_string)
+#     image = io.BytesIO(image_data)
+#     return image
 
 
 def load_cnn_model():
