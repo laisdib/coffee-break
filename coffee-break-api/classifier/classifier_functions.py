@@ -10,11 +10,12 @@ import tensorflow as tf
 
 
 def load_cnn_model():
-    model = tf.keras.models.load_model("ShuffleNet.h5")
+    model = tf.keras.models.load_model(r"C:\Users\ArkadeUser\Documents\projects\coffee-break\coffee-break-api\classifier\ShuffleNet.h5")
     return model
 
 
-def predict_image_class(image, model):
+def predict_image_class(image):
+    model = load_cnn_model()
     class_names = ["Cercospirose", "Saudável", "Ferrugem", "Bicho Mineiro", "Phoma"]
     prediction = model.predict(image)
 

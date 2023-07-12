@@ -7,24 +7,42 @@ import { ResultClassificationPopUp } from "../../components/ResultClassification
 import { Button } from "../../components/Button";
 import { DragAndDrop } from "../../components/DragAndDrop";
 
+import base64 from "base64-encode-file";
+import axios from "axios";
+export interface IData {
+  [key: string]: number;
+}
+
 export function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [plantId, setPlantId] = useState<number>();
   const [file, setFile] = useState<File | undefined>();
+  const [image, setImage] = useState<string | undefined>();
 
+  const [data, setData] = useState<IData | undefined>();
 
   console.log(plantId, file);
 
-  function handleOnSubmit(event: React.FormEvent) {
+  async function handleOnSubmit(event: React.FormEvent) {
     event.preventDefault();
 
     setIsLoading(true);
 
-    setTimeout(() => {
-      setIsLoading(false);
-      setIsOpen(true);
-    }, 2000);
+    const base64Image = await base64(file);
+    setImage(String(base64Image));
+
+    await axios
+      .post("http://localhost:5000/classifier", { plantId, base64Image })
+      .then((response) => {
+        setIsLoading(false);
+        setIsOpen(true);
+        setData(response.data);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        console.log(error);
+      });
   }
 
   return (
@@ -57,8 +75,8 @@ export function Home() {
             }
           />
           <Loader isLoading={isLoading} />
-          <DragAndDrop file={file} onChangeFile={setFile}/>
-          
+          <DragAndDrop file={file} onChangeFile={setFile} />
+
           {plantId && file ? (
             <Button name="Classificar" />
           ) : (
@@ -66,8 +84,8 @@ export function Home() {
           )}
           <ResultClassificationPopUp
             isOpen={isOpen}
-            resultImage="https://random.imagecdn.app/500/150"
-            results={["mais provável", "opção 2", "opção 3", "opção 4"]}
+            resultImage={image}
+            results={data}
             onCloseModal={setIsOpen}
           />
         </form>

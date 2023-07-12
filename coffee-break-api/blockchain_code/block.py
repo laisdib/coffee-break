@@ -6,10 +6,10 @@ class Block:
     def __init__(self, index, timestamp, previous_hash, data):
         self.index = index
         self.timestamp = timestamp
-        self.hash = self.calculate_hash()
         self.previous_hash = previous_hash
         self.data = data
         self.nonce = 0
+        self.hash = self.calculate_hash()
 
     def get_index(self):
         return self.index
@@ -26,7 +26,7 @@ class Block:
     def get_data(self):
         return self.data
     
-    def string_hash(self):
+    def __str__(self):
         return str(self.index) + str(self.timestamp) + str(self.previous_hash) + str(self.data) + str(self.nonce)
     
     def block_info(self):
@@ -47,8 +47,8 @@ class Block:
             except:
                 return None
             
-            block_data = self.str()
-            block_bytes = block_data.encode('utf-8')
+            block_data = self.__str__()
+            block_bytes = block_data.encode("utf-8")
             digest.update(block_bytes)
             bytes_hash = digest.digest()
             builder = []
@@ -62,10 +62,9 @@ class Block:
         return None
     
     def proof_of_work(self, difficulty):
-        zeros = ""
-        for _ in range(difficulty):
-            zeros += "0"
+        target_zeros = '0' * difficulty
 
-        while self.get_hash()[:difficulty] != zeros:
+        while self.get_hash()[:difficulty] != target_zeros:
             self.nonce += 1
             self.hash = self.calculate_hash()
+            print(self.hash)
