@@ -15,15 +15,3 @@ def load_image(image_path):
     image = np.expand_dims(image, axis=0)
 
     return image
-
-
-# image: temporary image path
-def generate_image_hash(image_path):
-    with open(image_path, "rb") as file:
-        image = file.read()
-
-    hash_object = hashlib.sha256()
-    hash_object.update(image)
-    image_hash = hash_object.hexdigest()
-
-    return image_hash

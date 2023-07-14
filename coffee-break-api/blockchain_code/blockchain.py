@@ -1,16 +1,24 @@
 import time
-from  blockchain_code.block import Block
+from objprint import op
+from blockchain_code.block import Block
+
+
 class Blockchain:
     def __init__(self, difficulty):
         self.difficulty = difficulty
         self.blocks = []
+
         # Create the genesis block
         self.create_block_genesis()
 
     def create_block_genesis(self):
-        genesis_block = Block(0, time.time(), "0","GENESIS BLOCK")
-        genesis_block.hash = genesis_block.calculate_hash()
+        genesis_block = Block(0, time.time(), None, "GENESIS BLOCK")
+        # genesis_block.hash = genesis_block.calculate_hash()
         self.blocks.append(genesis_block)
+
+        print("\nGENESIS BLOCK CREATED")
+        op(self.blocks)
+        print()
 
     def get_difficulty(self):
         return self.difficulty
@@ -20,12 +28,18 @@ class Blockchain:
 
     def new_block(self, data):
         latest_block = self.latest_block()
-        return Block(latest_block.get_index() + 1, time.time(), latest_block.get_hash(), data)
+        new_block = Block(latest_block.get_index() + 1, time.time(), latest_block.get_hash(), data)
+        
+        print("\nNEW BLOCK WAS GENERATED")
+        
+        return new_block
 
     def add_block(self, block):
         if block is not None:
             block.proof_of_work(self.difficulty)
             self.blocks.append(block)
+
+            print("\nNEW BLOCK ADDED")
 
     def is_first_block_valid(self):
         first_block = self.blocks[0]

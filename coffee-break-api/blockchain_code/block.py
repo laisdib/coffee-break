@@ -63,8 +63,11 @@ class Block:
     
     def proof_of_work(self, difficulty):
         target_zeros = '0' * difficulty
+        print("\nGENERATING VALID HASH")
 
         while self.get_hash()[:difficulty] != target_zeros:
             self.nonce += 1
             self.hash = self.calculate_hash()
+            
+            print("Attempt", self.nonce)
             print(self.hash)

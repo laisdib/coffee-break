@@ -1,16 +1,15 @@
 # import base64
 # import io
 import tensorflow as tf
+import os
 
 
-# def decode_base64(base64_string):
-#     image_data = base64.b64decode(base64_string)
-#     image = io.BytesIO(image_data)
-#     return image
+os.environ['TF_CPP_MIN_LOG_LEVEL']='3'
+# tf.logging.set_verbosity(tf.logging.ERROR)
 
 
 def load_cnn_model():
-    model = tf.keras.models.load_model(r"C:\Users\ArkadeUser\Documents\projects\coffee-break\coffee-break-api\classifier\ShuffleNet.h5")
+    model = tf.keras.models.load_model(r"D:\GitHub\coffee-break\coffee-break-api\classifier\ShuffleNet.h5")
     return model
 
 
