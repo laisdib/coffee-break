@@ -9,7 +9,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL']='3'
 
 
 def load_cnn_model():
-    model = tf.keras.models.load_model(r"D:\GitHub\coffee-break\coffee-break-api\classifier\ShuffleNet.h5")
+    model = tf.keras.models.load_model(r"C:\Users\ArkadeUser\Documents\projects\coffee-break\coffee-break-api\classifier\ShuffleNet.h5")
     return model
 
 

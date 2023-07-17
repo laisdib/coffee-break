@@ -16,13 +16,19 @@ export interface IData {
 export function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [plantId, setPlantId] = useState<number>();
+  const [plantId, setPlantId] = useState("");
   const [file, setFile] = useState<File | undefined>();
   const [image, setImage] = useState<string | undefined>();
 
   const [data, setData] = useState<IData | undefined>();
 
-  console.log(plantId, file);
+  const regex = /^[0-9]+$/;
+
+  function onCloseModal() {
+    setIsOpen(false);
+    setFile(undefined);
+    setPlantId("");
+  }
 
   async function handleOnSubmit(event: React.FormEvent) {
     event.preventDefault();
@@ -46,8 +52,8 @@ export function Home() {
   }
 
   return (
-    <article className="w-screen min-h-screen bg-primary-dark flex flex-col items-center text-white font-sans">
-      <header className=" flex flex-col justify-center items-center mt-32">
+    <article className="w-full min-h-screen overflow-x-hidden bg-primary-dark flex flex-col items-center text-white font-sans p-12">
+      <header className=" flex flex-col justify-center items-center">
         <aside className="flex flex-col items-center">
           <img src={logo} alt="Coffee Break Logo" className="mb-4" />
           <h1 className="font-bold text-4xl flex items-center">
@@ -71,8 +77,9 @@ export function Home() {
           <InputField
             label="Identificador da folha"
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              setPlantId(Number(event.target.value))
+              regex.test(event.target.value) && setPlantId(event.target.value)
             }
+            value={plantId}
           />
           <Loader isLoading={isLoading} />
           <DragAndDrop file={file} onChangeFile={setFile} />
@@ -86,7 +93,7 @@ export function Home() {
             isOpen={isOpen}
             resultImage={image}
             results={data}
-            onCloseModal={setIsOpen}
+            onCloseModal={onCloseModal}
           />
         </form>
       </main>

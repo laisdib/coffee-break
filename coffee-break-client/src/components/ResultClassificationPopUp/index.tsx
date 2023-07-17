@@ -10,7 +10,7 @@ export interface IResultClassificationPopUp {
   isOpen: boolean;
   resultImage: string | undefined;
   results: IData | undefined;
-  onCloseModal: (isOpen: boolean) => void;
+  onCloseModal: () => void;
 }
 
 export function ResultClassificationPopUp({
@@ -22,7 +22,7 @@ export function ResultClassificationPopUp({
   const [classifications, setClassifications] = useState<[string, number][]>();
 
   function closeModal() {
-    onCloseModal(false);
+    onCloseModal();
   }
   useEffect(() => {
     if (results) {
@@ -41,7 +41,7 @@ export function ResultClassificationPopUp({
       onRequestClose={closeModal}
       className="w-screen h-screen bg-black bg-opacity-80 flex items-center justify-center text-white"
     >
-      <div className="w-[515px] h-[785px] bg-light-dark rounded-md">
+      <div className="max-w-[515px] max-h-[785px] bg-light-dark rounded-md">
         <header className="flex justify-between items-center p-4">
           <h1 className="font-bold text-2xl">Resultado</h1>
           <X onClick={closeModal} className="cursor-pointer" />
