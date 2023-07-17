@@ -41,9 +41,18 @@ def classifier():
 
         os.remove(file_to_save)
 
+        previousBlock = blockchain.latest_block()
         newBlock = blockchain.new_block({'plant_id': plant_id, 'image': image_data, 'class': predicted_class})
-        blockchain.add_block(block=newBlock)
+        
+        if blockchain.is_first_block_valid():
+            if blockchain.is_valid_new_block(new_block=newBlock, previous_block=previousBlock):
+                blockchain.add_block(block=newBlock)
+            else:
+                print("New block invalid")
+        else:
+            print("First block invalid")
 
+        print("Is Blockchain valid?", blockchain.is_blockchain_valid())
         op(blockchain.blocks)
 
         return predicted_class
