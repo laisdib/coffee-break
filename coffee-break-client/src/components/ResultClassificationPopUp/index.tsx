@@ -41,7 +41,7 @@ export function ResultClassificationPopUp({
       onRequestClose={closeModal}
       className="w-screen h-screen bg-black bg-opacity-80 flex items-center justify-center text-white"
     >
-      <div className="max-w-[515px] max-h-[785px] bg-light-dark rounded-md">
+      <div className="max-w-[25vw] max-h-[80%] bg-light-dark rounded-md">
         <header className="flex justify-between items-center p-4">
           <h1 className="font-bold text-2xl">Resultado</h1>
           <X onClick={closeModal} className="cursor-pointer" />
@@ -52,7 +52,7 @@ export function ResultClassificationPopUp({
             alt="Result of the classification"
             className="aspect-video rounded-md"
           />
-          <div className="h-16 w-full bg-light-red mt-6 rounded-md flex items-center justify-center font-bold text-3xl">
+          <div className="h-16 w-full bg-light-red mt-6 rounded-md flex items-center justify-center font-bold text-2xl">
             {results && classifications?.map((classification, index) => (
               index == 0 && <p className="text-white">{`${classification[1]}%  ${classification[0]}`}</p>
              ))}

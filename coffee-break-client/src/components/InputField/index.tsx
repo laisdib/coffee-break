@@ -2,7 +2,7 @@ import { DOMAttributes } from "react";
 
 interface IInputFieldProps extends DOMAttributes<HTMLInputElement> {
   label: string;
-  value: string;
+  value?: string;
 }
 
 export function InputField({ label, value, onChange }: IInputFieldProps) {

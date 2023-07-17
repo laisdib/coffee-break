@@ -12,7 +12,6 @@ interface IDragAndDropProps {
 }
 
 export function DragAndDrop({
-  // base64Image,
   file,
   onChangeFile,
 }: IDragAndDropProps) {
@@ -25,7 +24,7 @@ export function DragAndDrop({
     setImage(String(base64Image));
     onChangeFile(currentFile);
   }
-  console.log(image)
+  
 
   return (
     <div className="mt-6">

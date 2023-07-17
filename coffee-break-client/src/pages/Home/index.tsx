@@ -22,8 +22,6 @@ export function Home() {
 
   const [data, setData] = useState<IData | undefined>();
 
-  const regex = /^[0-9]+$/;
-
   function onCloseModal() {
     setIsOpen(false);
     setFile(undefined);
@@ -77,9 +75,8 @@ export function Home() {
           <InputField
             label="Identificador da folha"
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              regex.test(event.target.value) && setPlantId(event.target.value)
+              setPlantId(event.target.value)
             }
-            value={plantId}
           />
           <Loader isLoading={isLoading} />
           <DragAndDrop file={file} onChangeFile={setFile} />
