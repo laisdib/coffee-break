@@ -77,6 +77,7 @@ export function Home() {
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
               setPlantId(event.target.value)
             }
+            value={plantId}
           />
           <Loader isLoading={isLoading} />
           <DragAndDrop file={file} onChangeFile={setFile} />

@@ -41,8 +41,8 @@ export function ResultClassificationPopUp({
       onRequestClose={closeModal}
       className="w-screen h-screen bg-black bg-opacity-80 flex items-center justify-center text-white"
     >
-      <div className="max-w-[25vw] max-h-[80%] bg-light-dark rounded-md">
-        <header className="flex justify-between items-center p-4">
+      <div className="min-w-[350px] max-w-[25vw] max-h-[90%] bg-light-dark rounded-md">
+        <header className="flex justify-between items-center p-4 pb-0">
           <h1 className="font-bold text-2xl">Resultado</h1>
           <X onClick={closeModal} className="cursor-pointer" />
         </header>
@@ -59,13 +59,13 @@ export function ResultClassificationPopUp({
           </div>
           <table className="bg-white bg-opacity-10 mt-6 rounded-md w-full">
             <tr>
-              <th className="p-4">Outros resultados</th>
+              <th className="p-2">Outros resultados</th>
             </tr>
-            <tr className="flex flex-col items-center mb-6">
+            <tr className="flex flex-col items-center mb-2">
               {results && classifications?.map(
                 (classification, index) =>
                   index > 0 && (
-                    <td className="border-t-2 w-[80%] border-[#ffffff3f] text-center p-2" key={index}>
+                    <td className="border-t-2 w-[80%] border-[#ffffff3f] text-center p-1" key={index}>
                       {` ${classification[1]}% ${classification[0]}`}
                     </td>
               ))}
