@@ -1,26 +1,52 @@
 import { FileUploader } from "react-drag-drop-files";
 
 import upload from "../../assets/upload.svg";
+import { Trash2Icon } from "lucide-react";
 
+import base64 from "base64-encode-file";
+import { useState } from "react";
 interface IDragAndDropProps {
+  // base64Image?: string;
   file: File | undefined;
-  onChangeFile: (file: File) => void;
+  onChangeFile: (file: File | undefined) => void;
 }
 
-export function DragAndDrop({file, onChangeFile} : IDragAndDropProps) {
+export function DragAndDrop({
+  file,
+  onChangeFile,
+}: IDragAndDropProps) {
   const fileTypes = ["JPG", "PNG"];
-
-  function handleChange(currentFile: File) {
-    onChangeFile(currentFile)
+  
+  const [image, setImage] = useState("");
+  
+  async function handleChange(currentFile: File) {
+    const base64Image = await base64(currentFile);
+    setImage(String(base64Image));
+    onChangeFile(currentFile);
   }
+  
 
   return (
     <div className="mt-6">
-      <p className="text-sm mb-2">Foto da folha</p>
+      {file ? (
+        <header className="flex justify-between">
+          <p className="text-sm mb-2">Foto da folha</p>
+          <Trash2Icon
+            onClick={() => onChangeFile(undefined)}
+            className="cursor-pointer hover:opacity-90"
+            width={20}
+          />
+        </header>
+      ) : (
+        <p className="text-sm mb-2">Foto da folha</p>
+      )}
+
       <FileUploader handleChange={handleChange} types={fileTypes}>
-        <div className="h-80 w-[489px] flex flex-col items-center justify-center bg-light-red bg-opacity-20 border-dashed border-2 rounded-md border-opacity-50 border-spacing-2">
+        <div className="h-80 w-[489px] flex flex-col items-center relative justify-center bg-light-red bg-opacity-20 border-dashed border-2 rounded-md border-opacity-50 border-spacing-2">
           {file ? (
-            <p>{file.name}</p>
+            <>
+              <img src={image} className="w-full h-full opacity-50"/>
+            </>
           ) : (
             <>
               <img src={upload} alt="Upload file icon" className="mb-8" />
@@ -35,3 +61,4 @@ export function DragAndDrop({file, onChangeFile} : IDragAndDropProps) {
     </div>
   );
 }
+
