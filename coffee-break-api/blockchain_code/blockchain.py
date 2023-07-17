@@ -13,7 +13,6 @@ class Blockchain:
 
     def create_block_genesis(self):
         genesis_block = Block(0, time.time(), None, "GENESIS BLOCK")
-        # genesis_block.hash = genesis_block.calculate_hash()
         self.blocks.append(genesis_block)
 
         print("\nGENESIS BLOCK CREATED")
