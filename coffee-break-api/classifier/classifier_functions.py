@@ -1,15 +1,13 @@
-# import base64
-# import io
 import tensorflow as tf
 import os
 
 
 os.environ['TF_CPP_MIN_LOG_LEVEL']='3'
-# tf.logging.set_verbosity(tf.logging.ERROR)
+LOCAL_PATH = os.getcwd()
 
 
 def load_cnn_model():
-    model = tf.keras.models.load_model(r"D:\GitHub\coffee-break\coffee-break-api\classifier\ShuffleNet.h5")
+    model = tf.keras.models.load_model(r"{}".format(LOCAL_PATH + "\classifier\ShuffleNet.h5"))
     return model
 
 
