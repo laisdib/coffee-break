@@ -26,15 +26,19 @@ class Block:
     def get_data(self):
         return self.data
     
-    def __str__(self):
+    def data_to_hash(self):
         return str(self.index) + str(self.timestamp) + str(self.previous_hash) + str(self.data) + str(self.nonce)
+    
+    def __str__(self):
+        return str(self.index) + str(self.timestamp) + str(self.previous_hash) + str(self.data) + str(self.nonce) + str(self.hash)
     
     def block_info(self):
         info = {
             self.index: {
-                "previous_hash": self.previous_hash, 
-                "timestamp": datetime.datetime.fromtimestamp(self.timestamp), 
+                "timestamp": datetime.datetime.fromtimestamp(self.timestamp),
+                "previous_hash": self.previous_hash,  
                 "data": self.data, 
+                "nonce": self.nonce,
                 "hash": self.hash}
                 }
         
@@ -47,7 +51,7 @@ class Block:
             except:
                 return None
             
-            block_data = self.__str__()
+            block_data = self.data_to_hash()
             block_bytes = block_data.encode("utf-8")
             digest.update(block_bytes)
             bytes_hash = digest.digest()

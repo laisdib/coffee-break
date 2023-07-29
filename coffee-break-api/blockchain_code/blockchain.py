@@ -12,7 +12,8 @@ class Blockchain:
         self.create_block_genesis()
 
     def create_block_genesis(self):
-        genesis_block = Block(0, time.time(), None, "GENESIS BLOCK")
+        genesis_block = Block(0, time.time(), None, "Bloco Gênesis")
+        op(genesis_block.block_info())
         self.blocks.append(genesis_block)
 
         print("\nGENESIS BLOCK CREATED")
